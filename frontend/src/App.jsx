@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+// HealerLayout
+import HealerLayout from "./Layout/healer/HealerLayout";
 
+// Auth
+import {
+  ForgotPassword,
+  OtpForgotPassword,
+  Register,
+  ResetPassword,
+  SignIn,
+} from "./pages/auth";
+
+const healerRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <HealerLayout />,
+  },
+  { path: "sign-in", element: <SignIn /> },
+  { path: "register", element: <Register /> },
+  { path: "reset-password", element: <ResetPassword /> },
+  { path: "forgot-password", element: <ForgotPassword /> },
+  { path: "forgot-password-otp", element: <OtpForgotPassword /> },
+
+  // Page not found
+  { path: "*", element: <PageNotFound /> },
+]);
+
+const promptBox = prompt("Enter user Type");
+
+const userType = promptBox || "seeker";
+
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <RouterProvider
+      router={userType === "healer" ? healerRouter : seekerRouter}
+    />
+  );
+};
 
-export default App
+export default App;
