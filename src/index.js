@@ -81,3 +81,5 @@ mongoose
   .catch((err) => {
     console.error(`MongoDB Atlas connection error: ${err}`);
   });
+
+module.exports = app;
