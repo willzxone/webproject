@@ -56,7 +56,6 @@ app.get("/test", (req, res) => {
 });
 
 /* MONGOOSE SETUP */
-const PORT = process.env.PORT || 6001;
 // await mongoose
 //   .connect(
 //     "mongodb+srv://willzxone:sD0Wwmu4bdjBPtjE@cluster0.tgyr22x.mongodb.net/socialmedia?retryWrites=true&w=majority&appName=Cluster0"
@@ -75,11 +74,10 @@ mongoose
     }
   )
   .then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
     console.log("MongoDB Atlas connected");
   })
   .catch((err) => {
     console.error(`MongoDB Atlas connection error: ${err}`);
   });
 
-module.exports = app;
+export default app;
